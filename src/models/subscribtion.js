@@ -1,5 +1,6 @@
-const Schema = require("mongoose").Schema;
+const mongoose = require("mongoose");
 
+const Schema = mongoose.Schema;
 const Subscription = new Schema({
   name: {
     type: String,
@@ -7,12 +8,16 @@ const Subscription = new Schema({
     index: true
   },
   balance: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Balance"
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User"
+  },
+  block: {
+    type: Schema.Types.ObjectId,
+    ref: "Block"
   }
 });
 module.exports = mongoose.model("Subscribtion", Subscription);

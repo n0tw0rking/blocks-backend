@@ -1,5 +1,5 @@
-const Schema = require("mongoose").Schema;
-
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const Service = new Schema({
   name: {
     type: String,

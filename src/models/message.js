@@ -1,6 +1,6 @@
-const mongoose = require("mongoose").Schema;
-
-const Message = new mongoose.Schema({
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const Message = new Schema({
   message: {
     type: String,
     require: true
