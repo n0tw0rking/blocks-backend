@@ -18,21 +18,20 @@ module.exports = {
 		example for that 
 		query{subscription(name:"AAA"){ _id block{ _id name location}}}
   */
-
-  //            ADAM'S NOTES
-  // IMPLEMENT A FUCNTION TO
-  // ONE || CREATE A REQUEST
   createNewUser: async args => {
     try {
-      //create a request
-      return await Requset.create(args.requsetInput);
+      return await Requset.create(args);
     } catch (e) {
       console.error(e);
       throw error;
     }
   },
-  //
-  //
+  // input user
+  // finds him
+  // saves in temp var
+  // saves him in user collection
+  //delete him from request collection
+  verifyUser() {},
   oneSubscription: async args => {
     //   const user = User.findOne({email:args.email})
     try {

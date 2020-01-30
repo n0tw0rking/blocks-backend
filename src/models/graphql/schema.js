@@ -91,7 +91,7 @@ module.exports = buildSchema(`
         oneBlock(name:String!):Block!
     }
     type MutationQuery{
-                createUser(userInput :UserInput ): User!
+        createUser(userInput :UserInput ): User!
         createBlock(blockInput : BlockInput) : Block! 
         createMessage(messageInput : MessageInput):Message!
         createService (name :String!):Service!
@@ -100,7 +100,7 @@ module.exports = buildSchema(`
         addBalance(value : Float!): Balance!
         addSerToSub(serviceName:String!,subName:String!): Service!
         addAdminToBlock(blockName:String!,email:String!):Block!
-        createNewUser(requestInput : RequestInput) : Request!   
+        createNewUser(username: String!, password: String!, email: String!) : Request!   
     }
     schema {
         query : RootQuery,
