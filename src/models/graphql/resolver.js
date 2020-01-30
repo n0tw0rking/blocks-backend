@@ -4,6 +4,11 @@ const Message = require("../../models/message");
 const Balance = require("../../models/balance");
 const Subscription = require("../../models/subscribtion");
 const Service = require("../../models/service");
+//I ADDED THE FOLLOWING
+const AdminBlock = require("../../models/adminBlock");
+const Invoice = require("../../models/Invoice");
+const Requset = require("../../models/request");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 module.exports = {
@@ -12,8 +17,22 @@ module.exports = {
 		by one query in grapgql
 		example for that 
 		query{subscription(name:"AAA"){ _id block{ _id name location}}}
-	*/
+  */
 
+  //            ADAM'S NOTES
+  // IMPLEMENT A FUCNTION TO
+  // ONE || CREATE A REQUEST
+  createNewUser: async args => {
+    try {
+      //create a request
+      return await Requset.create(args.requsetInput);
+    } catch (e) {
+      console.error(e);
+      throw error;
+    }
+  },
+  //
+  //
   oneSubscription: async args => {
     //   const user = User.findOne({email:args.email})
     try {

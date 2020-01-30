@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const graphiqlShcema = require("../models/graphql/schema");
 const graphqlResolvcer = require("../models/graphql/resolver");
 const isAuth = require("../api/middlewares/is-auth");
-const { config } = require("../config/index");
+const { config } = require("../config");
 module.exports = graphql = app => {
   app.use(bodyParser.json());
   app.use(isAuth);
