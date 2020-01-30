@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const User = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const User = new Schema(
   {
     name: {
       type: String,
@@ -33,7 +33,13 @@ const User = new mongoose.Schema(
     isSuperAdmin: {
       type: Boolean,
       default: false
-    }
+    },
+    adminBlock: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Block"
+      }
+    ]
   },
   { timestamps: true }
 );

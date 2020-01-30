@@ -1,13 +1,13 @@
-const User = require("../../models/user");
-const Block = require("../../models/block");
-const Message = require("../../models/message");
-const Balance = require("../../models/balance");
-const Subscription = require("../../models/subscribtion");
-const Service = require("../../models/service");
+const User = require("../../user");
+const Block = require("../../block");
+const Message = require("../../message");
+const Balance = require("../../balance");
+const Subscription = require("../../subscribtion");
+const Service = require("../../service");
 //I ADDED THE FOLLOWING
-const AdminBlock = require("../../models/adminBlock");
-const Invoice = require("../../models/Invoice");
-const Requset = require("../../models/request");
+const AdminBlock = require("../../adminBlock");
+const Invoice = require("../../Invoice");
+const Requset = require("../../request");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -105,13 +105,22 @@ module.exports = {
       "superpasswordkey",
       { expiresIn: "1h" }
     );
-    return { userId: user._id, token: token, tokenExpriration: 1 };
+    return {
+      userId: user._id,
+      token: token,
+      tokenExpriration: 1,
+      isAdmin: user.isAdmin,
+      isSuperAdmin: user.isSuperAdmin
+    };
   },
   // create user /////
   createUser: (args, req) => {
-    // if (!req.isAuth) {
-    //   throw new Error('Unauthenticated');
-    // }
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated");
+    } else if (!req.isAdmin) {
+      throw new Error("not allowed to create user with user privilege");
+    }
+
     return User.findOne({ email: args.userInput.email })
       .then(user => {
         if (user) {
@@ -124,6 +133,9 @@ module.exports = {
           email: args.userInput.email,
           password: hashedPassword
         });
+        if (req.isSuperAdmin) {
+          user.isAdmin = args.userInput.isAdmin;
+        }
         console.log(user);
         return user.save();
       })
