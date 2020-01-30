@@ -6,7 +6,6 @@
   "scripts": {
     "commit": "git add . && git commit -m",
     "push": "git push --all",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production&& node ./src/server.js",
     "deploy": "git add . && git commit -a -m\"automated message\" && git push heroku master"
   },
