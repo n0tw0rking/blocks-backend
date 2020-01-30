@@ -2,12 +2,12 @@
   "name": "uniblocks",
   "version": "1.0.0",
   "description": "Community app",
-  "main": " ",
+  "main": "nodemon ./src/server.js",
   "scripts": {
     "commit": "git add . && git commit -m",
     "push": "git push --all",
-    "start": "nodemon ./src/server.js",
-    "test": "test",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_ENV=development && nodemon ./src/server.js",
     "deploy": "git push heroku master"
   },
   "repository": {
