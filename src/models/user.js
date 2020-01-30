@@ -1,46 +1,41 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
-const User = new Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "Please enter a full name"],
-      index: true
-    },
-
-    email: {
-      type: String,
-      lowercase: true,
-      unique: true,
-      index: true
-    },
-
-    password: String,
-
-    salt: String,
-    role: {
-      type: String,
-      default: "user"
-    },
-    isAdmin: {
-      type: Boolean,
-      default: false
-    },
-    isUser: {
-      type: Boolean,
-      default: true
-    },
-    isSuperAdmin: {
-      type: Boolean,
-      default: false
-    },
-    adminBlock: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Block"
-      }
-    ]
+const schema = new Schema({
+  email: {
+    type: String,
+    require: true
   },
-  { timestamps: true }
-);
-module.exports = mongoose.model("User", User);
+  password: {
+    type: String,
+    require: true
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
+  isSuperAdmin: {
+    type: Boolean,
+    default: false
+  },
+  userMesg: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Message"
+    }
+  ],
+  userSubscription: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Subscription"
+    }
+  ],
+  adminBlock: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Block"
+    }
+  ]
+});
+
+module.exports = mongoose.model("User", schema);
