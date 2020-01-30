@@ -71,7 +71,6 @@ module.exports = {
             path: "block"
           }
         });
-      console.log(user);
       return user;
     } catch (err) {
       console.log(err);
