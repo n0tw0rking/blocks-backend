@@ -20,4 +20,4 @@ const Subscription = new Schema({
     ref: "Block"
   }
 });
-module.exports = mongoose.model("Subscribtion", Subscription);
+module.exports = mongoose.model("Subscription", Subscription);

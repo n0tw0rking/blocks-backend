@@ -60,9 +60,10 @@ module.exports = {
     // if (!req.isAuth) {
     //   throw new Error('Unauthenticated');
     // }
+    console.log("zzz");
     try {
       //need change the _id by the req.userId
-      const user = await User.findById({ _id: "5e315ae504442446af8ed9cc" })
+      const user = await User.findById({ _id: "5e32954c2caab0519d885385" })
         .populate("userMesg")
         .populate({
           path: "userSubscription",
