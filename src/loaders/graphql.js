@@ -15,7 +15,8 @@ module.exports = graphql = app => {
       graphiql: true
     })
   );
-  app.use("**", (req, res) => {
+  app.use("**", (req, res, next) => {
     res.redirect("/graphql");
+    next();
   });
 };
