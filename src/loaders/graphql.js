@@ -8,7 +8,7 @@ module.exports = graphql = app => {
   app.use(bodyParser.json());
   app.use(isAuth);
   app.use(
-    `${config.api}/graphql`,
+    "/graphql",
     express_graphql({
       schema: graphiqlShcema,
       rootValue: graphqlResolvcer,
