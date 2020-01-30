@@ -75,6 +75,7 @@ module.exports = {
       return user;
     } catch (err) {
       console.log(err);
+      throw new Error("something bad happen here");
     }
   },
   oneBlock: async args => {
