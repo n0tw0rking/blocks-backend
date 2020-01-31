@@ -7,7 +7,7 @@ const cors = require("cors");
 module.exports = graphql = app => {
   app.use(bodyParser.json());
   app.use(isAuth);
-  app.use(cors);
+  app.use(cors());
   app.use(
     "/graphql",
     express_graphql({
