@@ -3,9 +3,11 @@ const bodyParser = require("body-parser");
 const graphiqlShcema = require("../models/graphql/schema/schema");
 const graphqlResolvcer = require("../models/graphql/resolver/resolver");
 const isAuth = require("../api/middlewares/is-auth");
+const cors = require("cors");
 module.exports = graphql = app => {
   app.use(bodyParser.json());
   app.use(isAuth);
+  app.use(cors);
   app.use(
     "/graphql",
     express_graphql({
@@ -14,8 +16,7 @@ module.exports = graphql = app => {
       graphiql: true
     })
   );
-  app.use("**", (req, res, next) => {
+  app.use("**", (req, res) => {
     res.redirect("/graphql");
-    next();
   });
 };
