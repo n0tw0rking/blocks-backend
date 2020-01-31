@@ -8,6 +8,7 @@ const Service = require("../../service");
 const AdminBlock = require("../../adminBlock");
 const Invoice = require("../../invoice");
 const Requset = require("../../request");
+const { config } = require("../../../config/index");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -31,7 +32,6 @@ module.exports = {
   // saves in temp var
   // saves him in user collection
   //delete him from request collection
-  verifyUser() {},
   oneSubscription: async args => {
     //   const user = User.findOne({email:args.email})
     try {
@@ -89,29 +89,34 @@ module.exports = {
   },
   // login ////////
   login: async args => {
-    const user = await User.findOne({ email: args.userInput.email });
-    if (!user) {
-      throw new Error(" user does not exist ");
+    try {
+      const user = await User.findOne({ email: args.userInput.email });
+      if (!user) {
+        throw new Error(" user does not exist ");
+      }
+      const isEqual = await bcrypt.compare(
+        args.userInput.password,
+        user.password
+      );
+      if (!isEqual) {
+        throw new Error(" password is incorrect  ");
+      }
+      const token = jwt.sign(
+        { userId: user._id, email: user.email },
+
+        config.jwtSecret,
+        { expiresIn: "1h" }
+      );
+      return {
+        userId: user._id,
+        token: token,
+        tokenExpriration: 1,
+        isAdmin: user.isAdmin,
+        isSuperAdmin: user.isSuperAdmin
+      };
+    } catch (e) {
+      throw new Error(e);
     }
-    const isEqual = await bcrypt.compare(
-      args.userInput.password,
-      user.password
-    );
-    if (!isEqual) {
-      throw new Error(" password is incorrect  ");
-    }
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      "superpasswordkey",
-      { expiresIn: "1h" }
-    );
-    return {
-      userId: user._id,
-      token: token,
-      tokenExpriration: 1,
-      isAdmin: user.isAdmin,
-      isSuperAdmin: user.isSuperAdmin
-    };
   },
   // create user /////
   createUser: (args, req) => {
@@ -188,10 +193,10 @@ module.exports = {
   },
   // create meassge ////
   createMessage: async (args, req) => {
-    // if (!req.isAuth) {
-    //   throw new Error('Unauthenticated');
-    // }
-    //req.userId
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated");
+    }
+    req.userId;
 
     const message = new Message({
       message: args.messageInput.message,

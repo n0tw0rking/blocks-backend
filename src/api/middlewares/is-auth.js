@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../../config/index");
+const { config } = require("../../config/index");
 module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
   if (!authHeader) {
@@ -24,5 +24,8 @@ module.exports = (req, res, next) => {
   }
   req.isAuth = true;
   req.userId = decodedToken.userId;
+  req.isAdmin = decodedToken.isAdmin;
+  req.isSuperAdmin = decodedToken.isSuperAdmin;
+  console.log("userId inside userId", decodedToken);
   next();
 };
