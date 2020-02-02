@@ -6,7 +6,7 @@
   "scripts": {
     "commit": "git add . && git commit -m",
     "push": "git push --all",
-    "start": "NODE_ENV=production && node ./src/server.js",
+    "start": "nodemon ./src/server.js",
     "deploy": "git add . && git commit -a -m\"automated message\" && git push heroku master"
   },
   "repository": {
