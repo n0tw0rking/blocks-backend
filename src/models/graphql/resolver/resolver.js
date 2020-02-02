@@ -89,6 +89,9 @@ module.exports = {
             console.log(err);
         }
     },
+    isAuth: (_, req) => {
+        return req.userId;
+    },
     // login ////////
     login: async (args) => {
         const user = await User.findOne({ email: args.userInput.email });

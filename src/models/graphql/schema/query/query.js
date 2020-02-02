@@ -1,5 +1,6 @@
 module.exports = ` 
         type RootQuery {
+        isAuth : String
         oneUser:User
         login(userInput :UserInput) :  AuthData
         message: [Message!]
