@@ -1,6 +1,7 @@
 module.exports = ` 
         type RootQuery {
         oneUser:User
+        isAuth: String
         login(userInput :UserInput) :  AuthData
         message: [Message!]
         oneSubscription(name:String!) : Subscription

@@ -87,6 +87,9 @@ module.exports = {
       console.log(err);
     }
   },
+  isAuth: (_, req) => {
+    return req.userId;
+  },
   // login ////////
   login: async args => {
     try {
