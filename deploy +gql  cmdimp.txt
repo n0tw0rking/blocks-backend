@@ -1,0 +1,19 @@
+NODE_ENV=production && node
+
+query{
+  oneUser{
+    _id
+    email
+  }
+}
+
+////
+ query{
+  login(userInput:{email:"${faker.internet.email()}", password:"123456"}){
+    isSuperAdmin
+    userId
+    token
+    tokenExpriration
+    isAdmin
+  }
+}
