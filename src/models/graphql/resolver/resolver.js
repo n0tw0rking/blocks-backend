@@ -113,13 +113,13 @@ module.exports = {
                 isSuperAdmin: user.isSuperAdmin
             },
             "superpasswordkey",
-            { expiresIn: "5h" }
+            { expiresIn: "12h" }
         );
 
         return {
             userId: user._id,
             token: token,
-            tokenExpriration: 5,
+            tokenExpriration: 12,
             isAdmin: user.isAdmin,
             isSuperAdmin: user.isSuperAdmin
         };
