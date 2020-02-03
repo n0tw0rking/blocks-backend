@@ -56,4 +56,9 @@ module.exports = `
         name : String!
         subscriptionId:[Subscription!]!
     }
+
+    type SuperAndAdmin {
+        isSuperAdmin : Boolean!
+        isAdmin : Boolean!
+    }
 `;

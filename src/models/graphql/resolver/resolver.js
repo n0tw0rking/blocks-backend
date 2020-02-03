@@ -92,6 +92,14 @@ module.exports = {
     isAuth: (_, req) => {
         return req.userId;
     },
+    isSuperIsAdmin: async ({ id }) => {
+        console.log(id);
+        try {
+            const user = await User.findById({ _id: id });
+            console.log(user);
+            return user;
+        } catch (err) {}
+    },
     // login ////////
     login: async (args) => {
         const user = await User.findOne({ email: args.userInput.email });
