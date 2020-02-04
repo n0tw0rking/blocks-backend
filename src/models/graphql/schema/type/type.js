@@ -14,6 +14,7 @@ module.exports = `
     userMesg : [Message!]!
     userSubscription :[Subscription!]!
     isAdmin : Boolean!
+    isSuperAdmin : Boolean!
     }
     
     type Block {

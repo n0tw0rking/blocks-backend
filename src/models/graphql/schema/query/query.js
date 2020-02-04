@@ -2,7 +2,7 @@ module.exports = `
         type RootQuery {
         isAuth : String
         isSuperIsAdmin(id:String!): SuperAndAdmin
-        oneUser:User
+        oneUser(id:String!):User
         login(userInput :UserInput) :  AuthData
         message: [Message!]
         oneSubscription(name:String!) : Subscription
