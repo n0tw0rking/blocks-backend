@@ -54,6 +54,14 @@ module.exports = {
             console.log(err);
         }
     },
+    // find the service and by its name
+    oneService: async (args) => {
+        const service = await Service.findOne({ name: args.name }).populate(
+            "subscriptionId"
+        );
+        console.log(service);
+        return service;
+    },
     //this function to retrive one user information by his Id
     //when he is loged on
     oneUser: async (args, req) => {
@@ -63,7 +71,8 @@ module.exports = {
         try {
             //need change the _id by the req.userId
             const user = await User.findById({
-                _id: "5e32954c2caab0519d885385"
+                // _id: "5e32954c2caab0519d885385"
+                _id: args.id || "5e38371c33630807194ea1f3"
             })
                 .populate("userMesg")
                 .populate({
@@ -89,6 +98,17 @@ module.exports = {
             console.log(err);
         }
     },
+    isAuth: (_, req) => {
+        return req.userId;
+    },
+    isSuperIsAdmin: async ({ id }) => {
+        console.log(id);
+        try {
+            const user = await User.findById({ _id: id });
+            console.log(user);
+            return user;
+        } catch (err) {}
+    },
     // login ////////
     login: async (args) => {
         const user = await User.findOne({ email: args.userInput.email });
@@ -110,13 +130,13 @@ module.exports = {
                 isSuperAdmin: user.isSuperAdmin
             },
             "superpasswordkey",
-            { expiresIn: "5h" }
+            { expiresIn: "12h" }
         );
 
         return {
             userId: user._id,
             token: token,
-            tokenExpriration: 5,
+            tokenExpriration: 12,
             isAdmin: user.isAdmin,
             isSuperAdmin: user.isSuperAdmin
         };
