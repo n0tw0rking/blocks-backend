@@ -72,7 +72,7 @@ module.exports = {
             //need change the _id by the req.userId
             const user = await User.findById({
                 // _id: "5e32954c2caab0519d885385"
-                _id: args.id || "5e38371c33630807194ea1f3"
+                _id: args.id
             })
                 .populate("userMesg")
                 .populate({
