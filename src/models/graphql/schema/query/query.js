@@ -9,4 +9,5 @@ module.exports = `
         service:[Service!]
         oneService(name:String!):Service
         oneBlock(name:String!):Block
+        oneBlockSubs(name:String) :[Subscription!]
     }`;

@@ -98,9 +98,26 @@ module.exports = {
             console.log(err);
         }
     },
+    oneBlockSubs: async (args) => {
+        try {
+            const block = await Block.findOne({ name: args.name }).populate(
+                "userSubscription"
+            );
+            console.log(block);
+            if (!block) {
+                throw new Error("The block doesn't exist ");
+            } else {
+                return block.userSubscription;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    // This function check if the user in frontend is authentcated by the backend or not
     isAuth: (_, req) => {
         return req.userId;
     },
+    // This function check if the user is superAdmin or not
     isSuperIsAdmin: async ({ id }) => {
         console.log(id);
         try {
