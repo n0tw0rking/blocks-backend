@@ -32,13 +32,15 @@ module.exports = {
   // saves in temp var
   // saves him in user collection
   //delete him from request collection
+  verifyUser() {},
   oneSubscription: async args => {
     //   const user = User.findOne({email:args.email})
     try {
       const subscription = await Subscription.findOne({ name: args.name })
         .populate("balance")
         .populate("user")
-        .populate("block");
+        .populate("block")
+        .populate("service");
       // .populate({
       //   path: 'user',
       //   populate: {
@@ -54,6 +56,14 @@ module.exports = {
       console.log(err);
     }
   },
+  // find the service and by its name
+  oneService: async args => {
+    const service = await Service.findOne({ name: args.name }).populate(
+      "subscriptionId"
+    );
+    console.log(service);
+    return service;
+  },
   //this function to retrive one user information by his Id
   //when he is loged on
   oneUser: async (args, req) => {
@@ -62,7 +72,10 @@ module.exports = {
     // }
     try {
       //need change the _id by the req.userId
-      const user = await User.findById({ _id: "5e32954c2caab0519d885385" })
+      const user = await User.findById({
+        // _id: "5e32954c2caab0519d885385"
+        _id: args.id
+      })
         .populate("userMesg")
         .populate({
           path: "userSubscription",
@@ -87,45 +100,72 @@ module.exports = {
       console.log(err);
     }
   },
+  oneBlockSubs: async args => {
+    try {
+      const block = await Block.findOne({ name: args.name }).populate(
+        "userSubscription"
+      );
+      console.log(block);
+      if (!block) {
+        throw new Error("The block doesn't exist ");
+      } else {
+        return block.userSubscription;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  // This function check if the user in frontend is authentcated by the backend or not
   isAuth: (_, req) => {
     return req.userId;
   },
+  // This function check if the user is superAdmin or not
+  isSuperIsAdmin: async ({ id }) => {
+    console.log(id);
+    try {
+      const user = await User.findById({ _id: id });
+      console.log(user);
+      return user;
+    } catch (err) {}
+  },
   // login ////////
   login: async args => {
-    try {
-      const user = await User.findOne({ email: args.userInput.email });
-      if (!user) {
-        throw new Error(" user does not exist ");
-      }
-      const isEqual = await bcrypt.compare(
-        args.userInput.password,
-        user.password
-      );
-      if (!isEqual) {
-        throw new Error(" password is incorrect  ");
-      }
-      const token = jwt.sign(
-        { userId: user._id, email: user.email },
-
-        config.jwtSecret,
-        { expiresIn: "1h" }
-      );
-      return {
+    const user = await User.findOne({ email: args.userInput.email });
+    if (!user) {
+      throw new Error(" user does not exist ");
+    }
+    const isEqual = await bcrypt.compare(
+      args.userInput.password,
+      user.password
+    );
+    if (!isEqual) {
+      throw new Error(" password is incorrect  ");
+    }
+    const token = jwt.sign(
+      {
         userId: user._id,
-        token: token,
-        tokenExpriration: 1,
+        email: user.email,
         isAdmin: user.isAdmin,
         isSuperAdmin: user.isSuperAdmin
-      };
-    } catch (e) {
-      throw new Error(e);
-    }
+      },
+      "superpasswordkey",
+      { expiresIn: "12h" }
+    );
+
+    return {
+      userId: user._id,
+      token: token,
+      tokenExpriration: 12,
+      isAdmin: user.isAdmin,
+      isSuperAdmin: user.isSuperAdmin
+    };
   },
   // create user /////
   createUser: (args, req) => {
+    console.log(req.isAuth);
     if (!req.isAuth) {
       throw new Error("Unauthenticated");
-    } else if (!req.isAdmin) {
+    } else if (!req.isAdmin && !req.isSuperAdmin) {
       throw new Error("not allowed to create user with user privilege");
     }
 
@@ -196,10 +236,10 @@ module.exports = {
   },
   // create meassge ////
   createMessage: async (args, req) => {
-    if (!req.isAuth) {
-      throw new Error("Unauthenticated");
-    }
-    req.userId;
+    // if (!req.isAuth) {
+    //   throw new Error('Unauthenticated');
+    // }
+    //req.userId
 
     const message = new Message({
       message: args.messageInput.message,
@@ -207,7 +247,9 @@ module.exports = {
     });
     try {
       /////
-      const user = await User.findById({ _id: "5e2f11a306383525e580d2bc" });
+      const user = await User.findById({
+        _id: "5e2f11a306383525e580d2bc"
+      });
       user.userMesg.push(message._id);
       await user.save();
       ////////
@@ -276,6 +318,56 @@ module.exports = {
     });
     try {
       return await service.save();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  //add service to subscription
+  addSerToSub: async args => {
+    const service = await Service.findOne({ name: args.serviceName });
+    const subscription = await Subscription.findOne({ name: args.subName });
+    service.subscriptionId.push(subscription._id);
+    subscription.service.push(service._id);
+    try {
+      await subscription.save();
+
+      try {
+        return await service.save();
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  // add admin to block by his email and the block name
+
+  addAdminToBlock: async args => {
+    try {
+      const block = await Block.findOne({ name: args.blockName });
+      if (!block) {
+        throw new Error("The Block name is not an exist  user");
+      }
+      try {
+        const user = await User.findOne({ email: args.email });
+        if (!user.isAdmin) {
+          throw new Error("The Email Provided is not an Admin user");
+        }
+        block.blockAdmin = user._id;
+        user.adminBlock = block._id;
+        try {
+          await user.save();
+          try {
+            return await block.save();
+          } catch (err) {
+            console.log(err);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
       console.log(err);
     }
