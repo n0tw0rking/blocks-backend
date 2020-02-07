@@ -2,7 +2,7 @@ const User = require("../../user");
 const Block = require("../../block");
 const Message = require("../../message");
 const Balance = require("../../balance");
-const Subscription = require("../../subscribtion");
+const Subscription = require("../../subscription");
 const Service = require("../../service");
 //I ADDED THE FOLLOWING
 const AdminBlock = require("../../adminBlock");
@@ -38,7 +38,8 @@ module.exports = {
             const subscription = await Subscription.findOne({ name: args.name })
                 .populate("balance")
                 .populate("user")
-                .populate("block");
+                .populate("block")
+                .populate("service");
             // .populate({
             //   path: 'user',
             //   populate: {
@@ -316,6 +317,56 @@ module.exports = {
         });
         try {
             return await service.save();
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    //add service to subscription
+    addSerToSub: async (args) => {
+        const service = await Service.findOne({ name: args.serviceName });
+        const subscription = await Subscription.findOne({ name: args.subName });
+        service.subscriptionId.push(subscription._id);
+        subscription.service.push(service._id);
+        try {
+            await subscription.save();
+
+            try {
+                return await service.save();
+            } catch (err) {
+                console.log(err);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    // add admin to block by his email and the block name
+
+    addAdminToBlock: async (args) => {
+        try {
+            const block = await Block.findOne({ name: args.blockName });
+            if (!block) {
+                throw new Error("The Block name is not an exist  user");
+            }
+            try {
+                const user = await User.findOne({ email: args.email });
+                if (!user.isAdmin) {
+                    throw new Error("The Email Provided is not an Admin user");
+                }
+                block.blockAdmin = user._id;
+                user.adminBlock = block._id;
+                try {
+                    await user.save();
+                    try {
+                        return await block.save();
+                    } catch (err) {
+                        console.log(err);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            } catch (err) {
+                console.log(err);
+            }
         } catch (err) {
             console.log(err);
         }
