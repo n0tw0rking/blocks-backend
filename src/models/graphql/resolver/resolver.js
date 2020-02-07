@@ -2,7 +2,7 @@ const User = require("../../user");
 const Block = require("../../block");
 const Message = require("../../message");
 const Balance = require("../../balance");
-const Subscription = require("../../subscribtion");
+const Subscription = require("../../subscription");
 const Service = require("../../service");
 //I ADDED THE FOLLOWING
 const AdminBlock = require("../../adminBlock");
@@ -38,7 +38,8 @@ module.exports = {
             const subscription = await Subscription.findOne({ name: args.name })
                 .populate("balance")
                 .populate("user")
-                .populate("block");
+                .populate("block")
+                .populate("service");
             // .populate({
             //   path: 'user',
             //   populate: {
