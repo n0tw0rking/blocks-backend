@@ -9,7 +9,8 @@ module.exports = `
         location:String 
     }
     input MessageInput {
-        message : String!   
+        message : String!
+        name : String!   
     }
     input SubInput{
         name :String!
