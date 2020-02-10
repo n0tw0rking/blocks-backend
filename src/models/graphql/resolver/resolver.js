@@ -179,7 +179,8 @@ module.exports = {
       .then(hashedPassword => {
         const user = new User({
           email: args.userInput.email,
-          password: hashedPassword
+          password: hashedPassword,
+          UserId: args.userInput.UserId
         });
         if (req.isSuperAdmin) {
           user.isAdmin = args.userInput.isAdmin;
