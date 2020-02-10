@@ -2,7 +2,7 @@ module.exports = `
     input UserInput {
       email : String!
       password : String!
-      UserId : ID!
+      UserId : ID
       isAdmin: Boolean
     }
     input BlockInput{
