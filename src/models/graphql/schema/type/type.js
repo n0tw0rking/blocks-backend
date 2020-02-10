@@ -9,6 +9,7 @@ module.exports = `
     type User {
     _id : ID!
     email : String!
+    UserId : ID!
     password : String 
     userMesg : [Message!]!
     userSubscription :[Subscription!]!

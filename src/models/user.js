@@ -6,6 +6,10 @@ const schema = new Schema({
     type: String,
     require: true
   },
+  UserId: {
+    type: Number,
+    require: true
+  },
   password: {
     type: String,
     require: true
