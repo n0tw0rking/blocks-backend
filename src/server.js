@@ -1,8 +1,11 @@
 const { config } = require("./config");
 const express = require("express");
 const graphql = require("./loaders/graphql");
+const cors = require("cors");
 async function startServer() {
   const app = express();
+  app.use(cors());
+
   graphql(app);
   await require("./loaders/mongoose").mongooseConnect();
   app.listen(config.port, err => {

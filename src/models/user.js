@@ -10,6 +10,10 @@ const schema = new Schema({
     type: String,
     require: true
   },
+  UserId: {
+    type: Number,
+    unique: true
+  },
   isAdmin: {
     type: Boolean,
     default: false
