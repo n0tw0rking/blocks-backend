@@ -39,7 +39,8 @@ module.exports = {
                 .populate("balance")
                 .populate("user")
                 .populate("block")
-                .populate("service");
+                .populate("service")
+                .populate("userMesg");
             // .populate({
             //   path: 'user',
             //   populate: {
@@ -240,17 +241,17 @@ module.exports = {
         // }
         //req.userId
 
-        const message = new Message({
-            message: args.messageInput.message,
-            sender: "5e2f11a306383525e580d2bc"
-        });
         try {
-            /////
-            const user = await User.findById({
-                _id: "5e2f11a306383525e580d2bc"
+            const subscription = await Subscription.findOne({
+                name: args.messageInput.name
             });
-            user.userMesg.push(message._id);
-            await user.save();
+            console.log(subscription);
+            const message = new Message({
+                message: args.messageInput.message,
+                sender: subscription.user
+            });
+            subscription.userMesg.push(message._id);
+            await subscription.save();
             ////////
             return await message.save();
         } catch (err) {
@@ -353,7 +354,7 @@ module.exports = {
                     throw new Error("The Email Provided is not an Admin user");
                 }
                 block.blockAdmin = user._id;
-                user.adminBlock = block._id;
+                user.adminBlock.push(block._id);
                 try {
                     await user.save();
                     try {
@@ -367,6 +368,22 @@ module.exports = {
             } catch (err) {
                 console.log(err);
             }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    adminBlocks: async (args) => {
+        try {
+            const user = await User.findOne({ email: args.email }).populate({
+                path: "adminBlock",
+                populate: {
+                    path: "userSubscription"
+                }
+            });
+            if (!user.isAdmin) {
+                throw new Error("The Email Provided is not an Admin user");
+            }
+            return user.adminBlock;
         } catch (err) {
             console.log(err);
         }
