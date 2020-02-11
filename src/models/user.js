@@ -6,10 +6,6 @@ const schema = new Schema({
     type: String,
     require: true
   },
-  UserId: {
-    type: Number,
-    require: true
-  },
   password: {
     type: String,
     require: true
@@ -22,12 +18,6 @@ const schema = new Schema({
     type: Boolean,
     default: false
   },
-  userMesg: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Message"
-    }
-  ],
   userSubscription: [
     {
       type: Schema.Types.ObjectId,

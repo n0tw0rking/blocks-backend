@@ -11,7 +11,6 @@ module.exports = `
     email : String!
     UserId : ID!
     password : String 
-    userMesg : [Message!]!
     userSubscription :[Subscription!]!
     isAdmin : Boolean!
     isSuperAdmin : Boolean!
@@ -46,7 +45,9 @@ module.exports = `
         user : User !
         block : Block!
         service :[Service!]!
+        userMesg : [Message!]!
     }
+
     type Service {
         _id : ID! 
         name : String!

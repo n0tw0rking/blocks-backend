@@ -6,9 +6,11 @@ const AdminBlock = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  block: {
-    type: Schema.Types.ObjectId,
-    ref: "Block"
-  }
+  block: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Block"
+    }
+  ]
 });
 module.exports = mongoose.model("AdminBlock", AdminBlock);

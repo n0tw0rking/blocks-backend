@@ -7,7 +7,7 @@ const Message = new Schema({
   },
   sender: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Subscription"
   }
 });
 

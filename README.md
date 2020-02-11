@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # UniBlocks BACKEND
 
 Public Local management service that helps you to organize your home with other property owners in your neighborhood for better life quality.
@@ -98,3 +99,6 @@ Angular is inside the public folder, it has a separate architect, its own packag
 ## Contact
 
 created by @OmarBara, @mohamed-fared, @AdamMomen and @psktcsharp
+=======
+hello world
+>>>>>>> c4c878bb2ffd7a4805901decdfb6907a50763ea1
