@@ -8,7 +8,7 @@ module.exports = graphql = app => {
   app.use(cors());
   app.use(bodyParser.json());
   app.use(isAuth);
-  app.post(
+  app.use(
     "/graphql",
     express_graphql({
       schema: graphiqlShcema,
