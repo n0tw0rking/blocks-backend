@@ -19,6 +19,12 @@ const Subscription = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Block"
     },
+    userMesg: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Message"
+        }
+    ],
     service: [
         {
             type: Schema.Types.ObjectId,

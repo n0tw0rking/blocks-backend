@@ -10,4 +10,5 @@ module.exports = `
         oneService(name:String!):Service
         oneBlock(name:String!):Block
         oneBlockSubs(name:String) :[Subscription!]
+        adminBlocks(email:String):[Block!]
     }`;
