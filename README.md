@@ -1,4 +1,3 @@
-![n0tW0rking](https://circleci.com/<VCS>/n0tW0rking/blocks-backend.svg?style=svg)](https://github.com/n0tw0rking/blocks-backend)
 ![CircleCI](https://img.shields.io/circleci/build/github/AdamMomen/blocks-backend/master)
 
 # UniBlocks BACKEND 🏠
@@ -163,4 +162,4 @@ Angular is inside the public folder, it has a separate architect, its own packag
 
 ## Contact
 
-created by [@OmarBara](https://github.com/OmarBara), [@mohamed-fared,](https://github.com/mohamed-fared), [@AdamMomen](https://github.com/AdamMomen), [@psktcsharp](https://github.com/psktcsharp)
+created by [@OmarBara](https://github.com/OmarBara) [@mohamed-fared](https://github.com/mohamed-fared) [@AdamMomen](https://github.com/AdamMomen) [@psktcsharp](https://github.com/psktcsharp)
