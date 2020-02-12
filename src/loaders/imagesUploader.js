@@ -29,7 +29,7 @@ module.exports = image = app => {
   app.use(isAuth);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use("/api/images", parser.single("file"), (req, res) => {
+  app.use(`/${config.api}/images`, parser.single("file"), (req, res) => {
     if (req.isAuth) {
       const image = {};
       image.url = req.file.url;

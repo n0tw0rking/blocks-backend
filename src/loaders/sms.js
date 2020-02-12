@@ -13,7 +13,7 @@ module.exports = sms = app => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(isAuth);
-  app.post("/api/sms", (req, res) => {
+  app.post(`/${config.api}/sms`, (req, res) => {
     if (req.isAuth) {
       const { reciever, text } = req.body;
       console.log(reciever, text);
