@@ -3,10 +3,12 @@ const cloudinary = require("cloudinary");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const isAuth = require("../api/middlewares/is-auth");
 const bodyParser = require("body-parser");
+const { config } = require("../config/index");
+
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
+  cloud_name: config.image.cloud_name,
+  api_key: config.image.api_key,
+  api_secret: config.image.api_secret
 });
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
@@ -32,7 +34,7 @@ module.exports = image = app => {
       const image = {};
       image.url = req.file.url;
       image.id = req.file.public_id;
-      res.json({
+      res.status(200).json({
         image
       });
     } else res.json({ success: false, message: "unAuthorized" });
