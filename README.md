@@ -1,3 +1,4 @@
+[![n0tW0rking](https://circleci.com/<VCS>/n0tW0rking/blocks-backend.svg?style=svg)](https://github.com/n0tw0rking/blocks-backend)
 ![CircleCI](https://img.shields.io/circleci/build/github/AdamMomen/blocks-backend/master)
 
 # UniBlocks BACKEND 🏠
