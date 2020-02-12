@@ -6,12 +6,11 @@ module.exports = `
     password : String!
     verifyCode: String
     }
-
     type User {
     _id : ID!
     email : String!
+    UserId : ID!
     password : String 
-    
     userSubscription :[Subscription!]!
     isAdmin : Boolean!
     isSuperAdmin : Boolean!
@@ -23,13 +22,11 @@ module.exports = `
         location :String 
         userSubscription:[Subscription!]!
     }
-
     type Message{
         _id:ID!
         message:String!
         sender : User!
     }
-
     type AuthData{
         userId : ID !
         token : String!
@@ -37,12 +34,10 @@ module.exports = `
         isAdmin : Boolean!
         isSuperAdmin : Boolean!
     }
-
     type Balance {
         _id : ID!
         value : Float!
     }
-
     type Subscription {
         _id : ID!
         name : String!
@@ -58,7 +53,6 @@ module.exports = `
         name : String!
         subscriptionId:[Subscription!]!
     }
-
     type SuperAndAdmin {
         isSuperAdmin : Boolean!
         isAdmin : Boolean!
