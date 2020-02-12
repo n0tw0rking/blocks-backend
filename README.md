@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+
 # UniBlocks BACKEND 🏠
 
 Public Local management service that helps you to organize your home with other property owners in your neighborhood for better life quality.
