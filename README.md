@@ -49,7 +49,7 @@ It uses nodemon for livereloading :peace-fingers:
 
 # Utility Services ⚙️
 
-NOTE: You have to be signed in to be able to use these services.
+⚠️NOTE: You have to be signed in to be able to use these services.
 
 ## Email Service 📧
 
