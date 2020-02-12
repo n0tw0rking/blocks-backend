@@ -2,6 +2,7 @@ module.exports = `
     input UserInput {
       email : String!
       password : String!
+      UserId : ID
       isAdmin: Boolean
     }
     input BlockInput{
@@ -9,7 +10,8 @@ module.exports = `
         location:String 
     }
     input MessageInput {
-        message : String!   
+        message : String!
+        name : String!   
     }
     input SubInput{
         name :String!
