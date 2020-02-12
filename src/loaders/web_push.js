@@ -7,6 +7,7 @@ const webpush = require("web-push");
 This is the push notification web worker 
 */
 module.exports = notpush = app => {
+  app.use(bodyParser.json());
   app.use(isAuth);
   app.post("/push", (req, res) => {
     if (req.isAuth) {
