@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "gavatar",
-  allowedFormats: ["jpg", "jpeg", "png", "mp4", "mkv"],
+  allowedFormats: ["jpg", "jpeg", "png"],
   transformation: [
     {
       width: 500,

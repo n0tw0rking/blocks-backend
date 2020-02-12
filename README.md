@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # UniBlocks BACKEND
 
 Public Local management service that helps you to organize your home with other property owners in your neighborhood for better life quality.
@@ -6,6 +5,7 @@ It also connects you with your daily life needs regarding your living place and 
 also being aware of anything that happens in your building block.
 
 shares work between you and the neighbors at any event that comes up.
+[Link our deployed backEnd on Heroku](https://blocks-backend.herokuapp.com)
 
 # Motivation
 
@@ -44,6 +44,68 @@ npm start
 ```
 
 It uses nodemon for livereloading :peace-fingers:
+
+# Utility Services ⚙️
+
+NOTE: You have to be signed in to be able to use these services.
+
+## Email Service 📧
+
+To use the email service :
+
+### API End Point 📡
+
+`POST` `/api/email`
+
+### Email Example Request
+
+```json
+{
+  "email": "test@test.com",
+  "text": "Hello World"
+}
+```
+
+## SMS Service 📧
+
+### API End Point 📡
+
+Usage :
+
+`POST` `/api/sms`
+
+### SMS Example Request
+
+```json
+{
+  "receiver": "+21856481323",
+  "text": "Hello World"
+}
+```
+
+## Image Uploader Service 🖼️
+
+### API End Point 📡
+
+Usage :
+
+`POST` `/api/sms`
+
+### Image Uploading Example Request
+
+Allowed phote format are
+
+```js
+let options = {
+  allowedFormats: ["jpg", "jpeg", "png"]
+};
+```
+
+```json
+{
+  "file": "catImage.png"
+}
+```
 
 # API Validation
 
@@ -98,7 +160,4 @@ Angular is inside the public folder, it has a separate architect, its own packag
 
 ## Contact
 
-created by @OmarBara, @mohamed-fared, @AdamMomen and @psktcsharp
-=======
-hello world
->>>>>>> c4c878bb2ffd7a4805901decdfb6907a50763ea1
+created by [@OmarBara](https://github.com/OmarBara), [@mohamed-fared,](https://github.com/mohamed-fared), [@AdamMomen](https://github.com/AdamMomen), [@psktcsharp](https://github.com/psktcsharp)
