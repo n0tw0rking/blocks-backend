@@ -24,16 +24,18 @@ var parser = multer({
   storage: storage
 });
 module.exports = image = app => {
-  //   app.use(auth);
+  app.use(isAuth);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use("/api/images", parser.single("file"), (req, res) => {
-    const image = {};
-    image.url = req.file.url;
-    image.id = req.file.public_id;
-    res.json({
-      image
-    });
+    if (req.isAuth) {
+      const image = {};
+      image.url = req.file.url;
+      image.id = req.file.public_id;
+      res.json({
+        image
+      });
+    } else res.json({ success: false, message: "unAuthorized" });
   });
   app.use(function(err, req, res, next) {
     console.error(err.message);

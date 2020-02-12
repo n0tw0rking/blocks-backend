@@ -24,18 +24,22 @@ function sendEmail(
   return send(msg);
 }
 module.exports = email = app => {
+  app.use(isAuth);
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.post("/api/email", (req, res) => {
-    const { email, text } = req.body;
-    sendEmail(email, text)
-      .then(({ result }) => {
-        console.log("message sent", result);
-        res.json({ success: true, result });
-      })
-      .catch(err => {
-        console.log(err);
-        res.json({ success: false, message: err });
-      });
+    if (req.isAuth) {
+      const { email, text } = req.body;
+      sendEmail(email, text)
+        .then(({ result }) => {
+          console.log("message sent", result);
+          res.json({ success: true, result });
+        })
+        .catch(err => {
+          console.log(err);
+          res.json({ success: false, message: err });
+        });
+    } else res.json({ success: false, message: "UnAuthorized" });
   });
 };

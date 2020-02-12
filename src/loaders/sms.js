@@ -13,23 +13,25 @@ const sendSMS = SmsService("twilio", {
 module.exports = sms = app => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  //   app.use(isAuth);
+  app.use(isAuth);
   app.post("/api/sms", (req, res) => {
-    const { reciever, text } = req.body;
-    console.log(reciever, text);
-    sendSMS
-      .send({
-        recipient: [reciever],
-        //   ["+21654621974"],
-        message: text
-      })
-      .then(result => {
-        console.log(result);
-        res.json({ success: true, result });
-      })
-      .catch(err => {
-        console.log(err.negotiate);
-        res.json({ success: false, message: err.negotiate });
-      });
+    if (req.isAuth) {
+      const { reciever, text } = req.body;
+      console.log(reciever, text);
+      sendSMS
+        .send({
+          recipient: [reciever],
+          //   ["+21654621974"],
+          message: text
+        })
+        .then(result => {
+          console.log(result);
+          res.json({ success: true, result });
+        })
+        .catch(err => {
+          console.log(err.negotiate);
+          res.json({ success: false, message: err.negotiate });
+        });
+    } else res.json({ success: false, message: "UnAuthorized" });
   });
 };
