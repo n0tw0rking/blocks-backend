@@ -59,6 +59,10 @@ const config = {
   emails: {
     apiKey: "API key from mailgun",
     domain: "Domain Name from mailgun"
+  },
+  webPush: {
+    publicKey: process.env.publicKey,
+    privateKey: process.env.privateKey
   }
 };
 module.exports = {
