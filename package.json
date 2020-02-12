@@ -7,7 +7,7 @@
     "commit": "git add . && git commit -m",
     "push": "git push --all",
     "start": " NODE_ENV=production && node ./src/server.js",
-    "deploy": "git add . && git commit -a -m\"automated message\" && git push heroku master"
+    "deploy": "git add . && git commit -a -m\"(Deploy) deplouing to Heroku\" && git push heroku master"
   },
   "repository": {
     "type": "git",
@@ -49,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/n0tw0rking/uniBlocks/issues"
   },
-  "homepage": "https://github.com/n0tw0rking/uniBlocks#readme"
+  "homepage": "https://github.com/n0tw0rking/uniBlocks#readme",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
 }

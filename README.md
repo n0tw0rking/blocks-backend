@@ -1,4 +1,6 @@
-# UniBlocks BACKEND
+![CircleCI](https://img.shields.io/circleci/build/github/AdamMomen/blocks-backend/master)
+
+# UniBlocks BACKEND 🏢🏗️
 
 Public Local management service that helps you to organize your home with other property owners in your neighborhood for better life quality.
 It also connects you with your daily life needs regarding your living place and the services you need in your neighborhood.
@@ -19,13 +21,13 @@ shares work between you and the neighbors at any event that comes up.
 Built with :
 
 - Express, Node js
-- MongoDB, Cloude Mlab
+- MongoDB, Cloud Mlab
 - Angular 8
 - typeScript
 - CircleCi
 - Jasmin Karma Angular / Jest Node
 - Mobile Development Progressive Web Apps
-- GrapQl
+- GraphQL
 
 ## Development
 
@@ -160,4 +162,4 @@ Angular is inside the public folder, it has a separate architect, its own packag
 
 ## Contact
 
-created by [@OmarBara](https://github.com/OmarBara), [@mohamed-fared,](https://github.com/mohamed-fared), [@AdamMomen](https://github.com/AdamMomen), [@psktcsharp](https://github.com/psktcsharp)
+created by [@OmarBara](https://github.com/OmarBara) [@mohamed-fared](https://github.com/mohamed-fared) [@AdamMomen](https://github.com/AdamMomen) [@psktcsharp](https://github.com/psktcsharp)
