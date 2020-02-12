@@ -49,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/n0tw0rking/uniBlocks/issues"
   },
-  "homepage": "https://github.com/n0tw0rking/uniBlocks#readme"
+  "homepage": "https://github.com/n0tw0rking/uniBlocks#readme",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
 }
