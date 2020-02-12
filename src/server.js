@@ -21,7 +21,7 @@ async function startServer() {
     const sub = req.body;
     console.log(sub);
     res.set("Content-Type", "application/json");
-
+    console.log(config.webPush.publicKey, config.webPush.privateKey);
     webpush.setVapidDetails(
       "blocks:Notworking@gmail.com",
       config.webPush.publicKey,
