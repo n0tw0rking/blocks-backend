@@ -99,7 +99,7 @@ Usage :
 }
 ```
 
-###Allowed Image formats
+### Allowed Image formats
 
 ```js
 let options = {
