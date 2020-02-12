@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+![CircleCI](https://img.shields.io/circleci/build/github/AdamMomen/blocks-backend/master)
 
 # UniBlocks BACKEND 🏠
 
