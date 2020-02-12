@@ -93,18 +93,18 @@ Usage :
 
 ### Image Uploading Example Request
 
-Allowed phote format are
+```json
+{
+  "file": "catImage.png"
+}
+```
+
+###Allowed Image formats
 
 ```js
 let options = {
   allowedFormats: ["jpg", "jpeg", "png"]
 };
-```
-
-```json
-{
-  "file": "catImage.png"
-}
 ```
 
 # API Validation
