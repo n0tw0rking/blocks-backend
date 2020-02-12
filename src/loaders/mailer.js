@@ -16,7 +16,7 @@ function sendEmail(
     subject: "test messge",
     text: `${text}`,
     html: `
-            <div><h1>Hello ADAM</h1><br/>
+            <div><h1>${text}</h1><br/>
             <strong><h2>Thanks for the hard effort you give</h2></strong><br/>
             <h5>This is your test meassage :</h5><br/>
             </div>`
