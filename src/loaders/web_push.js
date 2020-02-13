@@ -2,17 +2,27 @@ const bodyParser = require("body-parser");
 const isAuth = require("../api/middlewares/is-auth");
 const { config } = require("../config/index");
 const webpush = require("web-push");
-
+const PushNotif = require("../models/pushNotification");
 /*
 This is the push notification web worker 
 */
 module.exports = notpush = app => {
-  app.use(bodyParser.json());
   app.use(isAuth);
-  app.post("/push", (req, res) => {
+  app.post("/push", async (req, res) => {
     if (req.isAuth) {
       const sub = req.body;
       console.log(sub);
+
+      const push = new PushNotif({
+        userId: req.userId,
+        subNotif: sub
+      });
+      try {
+        await push.save();
+      } catch (err) {
+        console.log(err, "something is wrong mohamed ");
+      }
+
       res.set("Content-Type", "application/json");
 
       webpush.setVapidDetails(
