@@ -1,9 +1,9 @@
-require("dotenv").config();
+const { config } = require("../config/index");
 const isAuth = require("../api/middlewares/is-auth");
 const bodyParser = require("body-parser");
 const send = require("gmail-send")({
-  user: process.env.gmail_sender,
-  pass: process.env.gmail_password
+  user: config.email.sender,
+  pass: config.email.password
 });
 function sendEmail(
   to,
@@ -28,13 +28,13 @@ module.exports = email = app => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.post("/api/email", (req, res) => {
+  app.post(`/${config.api}/email`, (req, res) => {
     if (req.isAuth) {
       const { email, text } = req.body;
       sendEmail(email, text)
         .then(({ result }) => {
           console.log("message sent", result);
-          res.json({ success: true, result });
+          res.status(200).json({ success: true, result });
         })
         .catch(err => {
           console.log(err);

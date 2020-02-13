@@ -1,20 +1,19 @@
-require("dotenv").config();
+const { config } = require("../config/index");
 const isAuth = require("../api/middlewares/is-auth");
 const bodyParser = require("body-parser");
 const SmsService = require("sails-service-sms");
-// console.log()
 const sendSMS = SmsService("twilio", {
-  sender: process.env.SENDER_NUM,
+  sender: config.sms.sender_num,
   provider: {
-    accountSid: process.env.ACC_SID,
-    authToken: process.env.AUTH_TOKEN
+    accountSid: config.sms.acc_sid,
+    authToken: config.sms.auth_token
   }
 });
 module.exports = sms = app => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(isAuth);
-  app.post("/api/sms", (req, res) => {
+  app.post(`/${config.api}/sms`, (req, res) => {
     if (req.isAuth) {
       const { reciever, text } = req.body;
       console.log(reciever, text);
@@ -26,7 +25,7 @@ module.exports = sms = app => {
         })
         .then(result => {
           console.log(result);
-          res.json({ success: true, result });
+          res.status(200).json({ success: true, result });
         })
         .catch(err => {
           console.log(err.negotiate);
