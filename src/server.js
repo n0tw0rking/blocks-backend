@@ -8,28 +8,29 @@ const notpush = require("./loaders/web_push");
 const cors = require("cors");
 
 async function startServer() {
-    const app = express();
-    app.use(cors());
+  const app = express();
+  app.use(cors());
 
-    sms(app);
-    email(app);
-    image(app);
-    notpush(app);
-    graphql(app);
+  sms(app);
+  email(app);
+  image(app);
+  notpush(app);
+  graphql(app);
 
-    await require("./loaders/mongoose").mongooseConnect();
-    app.listen(config.port, (err) => {
-        if (err) {
-            console.Error(err);
-            process.exit(1);
-            return;
-        }
-        console.log(`
+  await require("./loaders/mongoose").mongooseConnect();
+  app.listen(config.port, err => {
+    if (err) {
+      console.Error(err);
+      process.exit(1);
+      return;
+    }
+    console.log(`
       ################################################
            🛡️  Server listening on port: ${config.port} 🛡️ 
       ################################################
     `);
-    });
+  });
 }
 
 startServer();
+module.exports = { startServer };

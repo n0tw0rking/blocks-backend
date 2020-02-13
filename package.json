@@ -7,7 +7,8 @@
     "commit": "git add . && git commit -m",
     "push": "git push --all",
     "start": "NODE_ENV=production && node ./src/server.js",
-    "deploy": "git add . && git commit -a -m\"(deploy) deplouing to Heroku\" && git push heroku master"
+    "deploy": "git add . && git commit -a -m\"(deploy) deplouing to Heroku\" && git push heroku master",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
