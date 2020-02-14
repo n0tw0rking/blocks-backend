@@ -10,5 +10,6 @@ module.exports = `
         addSerToSub(serviceName:String!,subName:String!): Service
         addAdminToBlock(blockName:String!,email:String!):Block
         createNewUser(username: String!, password: String!, email: String!) : Request  
+        deleteNotificationSub(userId:String! ,sub:String!):String
     }
     `;
