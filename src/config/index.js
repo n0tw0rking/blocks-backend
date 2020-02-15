@@ -56,9 +56,23 @@ const config = {
   /**
    * Mailgun email credentials
    */
-  emails: {
-    apiKey: "API key from mailgun",
-    domain: "Domain Name from mailgun"
+  webPush: {
+    public_key: process.env.PUBLIC_KEY,
+    private_key: process.env.PRIVATE_KEY
+  },
+  email: {
+    password: process.env.GMAIL_PASSWORD,
+    sender: process.env.GMAIL_SENDER
+  },
+  sms: {
+    acc_sid: process.env.ACC_SID,
+    auth_token: process.env.AUTH_TOKEN,
+    sender_num: process.env.SENDER_NUM
+  },
+  image: {
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
   }
 };
 module.exports = {

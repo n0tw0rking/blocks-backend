@@ -4,6 +4,9 @@ const Message = require("../../message");
 const Balance = require("../../balance");
 const Subscription = require("../../subscription");
 const Service = require("../../service");
+const PushNotif = require("../../pushNotification");
+const webpush = require("web-push");
+const { config } = require("../../../config/index");
 //I ADDED THE FOLLOWING
 const AdminBlock = require("../../adminBlock");
 const Invoice = require("../../invoice");
@@ -245,7 +248,7 @@ module.exports = {
             const subscription = await Subscription.findOne({
                 name: args.messageInput.name
             });
-            console.log(subscription);
+            // console.log(subscription);
             const message = new Message({
                 message: args.messageInput.message,
                 sender: subscription.user
@@ -253,7 +256,56 @@ module.exports = {
             subscription.userMesg.push(message._id);
             await subscription.save();
             ////////
-            return await message.save();
+            try {
+                const messageSave = await message.save();
+                try {
+                    const push = await PushNotif.find({
+                        // userId: "5e38371c33630807194ea1f3"
+                        userId: subscription.user
+                    });
+                    console.log(push);
+                    // subscription.user
+                    // res.set("Content-Type", "application/json");
+
+                    webpush.setVapidDetails(
+                        "blocks:Notworking@gmail.com",
+                        config.webPush.public_key,
+                        config.webPush.private_key
+                    );
+
+                    const payload = JSON.stringify({
+                        notification: {
+                            title: "UNI-BLoCK",
+                            body: "You Have New Message ",
+                            icon:
+                                "https://lh3.googleusercontent.com/proxy/jvefvnD85Iszy5iybynbTaCHx-ZUd7QeVJ-m3jYIdy6ST3uTrBE88ZpvLqLEKmeDoXrWZK7yuM6zw8Wse30_AgyQhMrvyePbo5FMIYqLzAJysjXYcipckAJoNx3GvwJ9xRt_5g"
+                        }
+                    });
+                    push.forEach((ele) => {
+                        Promise.resolve(
+                            webpush.sendNotification(ele.subNotif, payload)
+                        );
+                    });
+                    // Promise.resolve(
+                    //     webpush.sendNotification(push.subNotif, payload)
+                    // );
+                    // .then(() => {
+                    //     res.status(200).json({
+                    //         message: "Message Notification Sent"
+                    //     });
+                    // })
+                    // .catch((err) => {
+                    //     console.log(err);
+                    //     res.sendStatus(500);
+                    // });
+                } catch (err) {
+                    console.log(err, "PUSH ");
+                }
+
+                return messageSave;
+            } catch (err) {
+                console.log(err);
+            }
         } catch (err) {
             console.log(err);
         }
@@ -384,6 +436,30 @@ module.exports = {
                 throw new Error("The Email Provided is not an Admin user");
             }
             return user.adminBlock;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    deleteNotificationSub: async (args) => {
+        try {
+            const user = await PushNotif.find({ userId: args.userId });
+            console.log(user);
+            user.forEach(async (ele) => {
+                if (ele.subNotif.endpoint === args.sub) {
+                    try {
+                        const deletePush = await PushNotif.deleteOne({
+                            _id: ele._id
+                        });
+                        console.log(deletePush);
+                        console.log(ele._id, "oK");
+                        console.log(args.sub, "Ok Ok");
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            });
+
+            return "Deleted successfully  ";
         } catch (err) {
             console.log(err);
         }
