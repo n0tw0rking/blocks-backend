@@ -19,6 +19,7 @@
   "author": "Uni Blocks Team",
   "license": "ISC",
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^5.3.0",
     "apollo": "^2.22.0",
     "apollo-datasource-rest": "^0.6.11",
     "axios": "^0.19.2",
