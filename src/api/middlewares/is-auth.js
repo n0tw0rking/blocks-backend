@@ -1,11 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { config } = require("../../config/index");
 module.exports = (req, res, next) => {
-    // console.log(req.body, "Ttt");
-    // console.log(req.method, "method");
     const authHeader = req.get("Authorization");
 
-    console.log(authHeader, "@@@@");
     if (!authHeader) {
         req.isAuth = false;
         return next();

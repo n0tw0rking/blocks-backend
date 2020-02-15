@@ -157,7 +157,8 @@ module.exports = {
     );
 
     return {
-      userId: user._id,
+      // userId: user._id,
+      userId: user.UserId,
       token: token,
       tokenExpriration: 12,
       isAdmin: user.isAdmin,

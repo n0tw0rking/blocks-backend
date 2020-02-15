@@ -34,10 +34,9 @@ module.exports = notpush = app => {
       const payload = JSON.stringify({
         notification: {
           title: "UNI-BLoCK",
-          body: "Thank you everything",
+          body: "Thank you everything ",
           icon:
-            "https://lh3.googleusercontent.com/proxy/jvefvnD85Iszy5iybynbTaCHx-ZUd7QeVJ-m3jYIdy6ST3uTrBE88ZpvLqLEKmeDoXrWZK7yuM6zw8Wse30_AgyQhMrvyePbo5FMIYqLzAJysjXYcipckAJoNx3GvwJ9xRt_5g",
-          vibrate: [100, 50, 100]
+            "https://lh3.googleusercontent.com/proxy/jvefvnD85Iszy5iybynbTaCHx-ZUd7QeVJ-m3jYIdy6ST3uTrBE88ZpvLqLEKmeDoXrWZK7yuM6zw8Wse30_AgyQhMrvyePbo5FMIYqLzAJysjXYcipckAJoNx3GvwJ9xRt_5g"
         }
       });
       Promise.resolve(webpush.sendNotification(sub, payload))
