@@ -5,8 +5,8 @@ const Push = new Schema({
         type: {}
     },
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+        type: String,
+        required: true
     }
 });
 
