@@ -28,7 +28,7 @@ module.exports = email = app => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.post("/api/email", (req, res) => {
+  app.post(`/${config.api}/email`, (req, res) => {
     if (req.isAuth) {
       const { email, text } = req.body;
       sendEmail(email, text)
