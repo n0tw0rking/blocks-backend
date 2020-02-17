@@ -1,12 +1,17 @@
+/**
+ * 
+ * WEB Push Notification Worker
+ */
+
 const bodyParser = require("body-parser");
 const isAuth = require("../api/middlewares/is-auth");
-const { config } = require("../config/index");
+const {
+  config
+} = require("../config/index");
 const webpush = require("web-push");
 const PushNotif = require("../models/pushNotification");
-/*
-This is the push notification web worker 
-*/
-module.exports = notpush = app => {
+
+module.exports = pushNotif = app => {
   app.use(isAuth);
   app.post("/push", async (req, res) => {
     if (req.isAuth) {
@@ -35,8 +40,7 @@ module.exports = notpush = app => {
         notification: {
           title: "UNI-BLoCK",
           body: "Thank you everything ",
-          icon:
-            "https://lh3.googleusercontent.com/proxy/jvefvnD85Iszy5iybynbTaCHx-ZUd7QeVJ-m3jYIdy6ST3uTrBE88ZpvLqLEKmeDoXrWZK7yuM6zw8Wse30_AgyQhMrvyePbo5FMIYqLzAJysjXYcipckAJoNx3GvwJ9xRt_5g"
+          icon: "https://lh3.googleusercontent.com/proxy/jvefvnD85Iszy5iybynbTaCHx-ZUd7QeVJ-m3jYIdy6ST3uTrBE88ZpvLqLEKmeDoXrWZK7yuM6zw8Wse30_AgyQhMrvyePbo5FMIYqLzAJysjXYcipckAJoNx3GvwJ9xRt_5g"
         }
       });
       Promise.resolve(webpush.sendNotification(sub, payload))
@@ -49,6 +53,9 @@ module.exports = notpush = app => {
           console.log(err);
           res.sendStatus(500);
         });
-    } else res.json({ success: false, message: "unAuthorized" });
+    } else res.json({
+      success: false,
+      message: "unAuthorized"
+    });
   });
 };
