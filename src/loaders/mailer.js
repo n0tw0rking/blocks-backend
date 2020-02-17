@@ -29,21 +29,24 @@ function sendEmail(
   return send(msg);
 }
 module.exports = email = app => {
-  /*
-   * Secutity
-   * Authentication Middleware
-   */
-  app.use(isAuth);
-
   app.post(`${config.api.prefix}/email`, (req, res) => {
+
     /**
-     * Checking Authorizaiton
+     * Authorizaiton Checking ...
      */
+
     if (req.isAuth) {
       const {
         email,
         text
       } = req.body;
+
+      /**
+       * Security Checking
+       * isAuthorized  === true  ? 
+       * => Send Eamil
+       */
+
       sendEmail(email, text)
         .then(({
           result
@@ -61,6 +64,13 @@ module.exports = email = app => {
             message: err
           });
         });
+
+      /**
+       * Security Checking
+       * isAuthorized  === false  ? 
+       * => Send Unathorized message
+       */
+
     } else res.json({
       success: false,
       message: "UnAuthorized"

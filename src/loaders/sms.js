@@ -25,7 +25,6 @@ const sendSMS = smsService("twilio", {
 
 module.exports = sms = app => {
 
-  app.use(isAuth);
   app.post(`${config.api.prefix}/sms`, (req, res) => {
     if (req.isAuth) {
       const {
