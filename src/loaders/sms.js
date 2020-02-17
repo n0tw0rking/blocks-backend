@@ -11,7 +11,7 @@ const smsService = require("sails-service-sms");
 /**
  * SmS sender Function
  * @param  serviceProvider
- * @param Options Object which has sender < Number >: account owner 's number , provider <Object>: Sid key , Token
+ * @param Options Object which has sender < Number >: account owner 's number , provider <Object>: Sid key sting , Token string
  * 
  */
 
@@ -26,6 +26,11 @@ const sendSMS = smsService("twilio", {
 module.exports = sms = app => {
 
   app.post(`${config.api.prefix}/sms`, (req, res) => {
+
+    /**
+     * Authorizaiton Checking ...
+     */
+
     if (req.isAuth) {
       const {
         reciever,
@@ -35,7 +40,9 @@ module.exports = sms = app => {
       sendSMS
         .send({
           recipient: [reciever],
-          //   ["+21654621974"],
+          /**
+           * example["+21654621974"],
+           */
           message: text
         })
         .then(result => {

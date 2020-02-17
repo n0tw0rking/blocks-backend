@@ -7,16 +7,8 @@ const graphqlResolvcer = require("../models/graphql/resolver/resolver");
 const isAuth = require("../api/middlewares/is-auth");
 
 module.exports = graphql = app => {
-
   /*
-   * Secutity
-   * Authentication Middleware
-   */
-
-  app.use(isAuth);
-
-  /*
-   *  GraphQl route
+   * GraphQl endpoing route
    */
 
   app.use(
@@ -29,7 +21,7 @@ module.exports = graphql = app => {
   );
 
   /*
-   * Redirecting to `/graphql` for all other routes
+   * Redirecting to `/graphql` for all other routes that are not on the api
    */
 
   app.use("**", (req, res, next) => {

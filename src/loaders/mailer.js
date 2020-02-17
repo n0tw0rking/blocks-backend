@@ -34,7 +34,6 @@ module.exports = email = app => {
     /**
      * Authorizaiton Checking ...
      */
-
     if (req.isAuth) {
       const {
         email,
