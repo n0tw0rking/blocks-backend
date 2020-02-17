@@ -36,7 +36,13 @@ module.exports = sms = app => {
         reciever,
         text
       } = req.body;
-      console.log(reciever, text);
+
+      /**
+       * Authorizaiton Checking...
+       * isAuthorized  === true  ? 
+       * => Send sms
+       */
+
       sendSMS
         .send({
           recipient: [reciever],
@@ -52,6 +58,13 @@ module.exports = sms = app => {
             result
           });
         })
+
+        /**
+         * Authorizaiton Checker
+         * isAuthorized  === false  ? 
+         * => Send Unathorized message
+         */
+
         .catch(err => {
           console.log(err.negotiate);
           res.json({

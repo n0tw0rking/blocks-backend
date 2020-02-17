@@ -12,12 +12,11 @@ const webpush = require("web-push");
 const PushNotif = require("../models/pushNotification");
 
 module.exports = pushNotif = app => {
-  /**
-   * Authentication middleware
-   */
-  app.use(isAuth);
-
   app.post("/push", async (req, res) => {
+
+    /**
+     * Authorizaiton Checking ...
+     */
     if (req.isAuth) {
       const sub = req.body;
       const push = new PushNotif({

@@ -1,5 +1,8 @@
-const mongoose = require("mongoose");
+/**
+ *  Block Model 
+ */
 
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Block = new Schema({
   name: {
@@ -9,12 +12,10 @@ const Block = new Schema({
   location: {
     type: String
   },
-  userSubscription: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Subscription"
-    }
-  ],
+  userSubscription: [{
+    type: Schema.Types.ObjectId,
+    ref: "Subscription"
+  }],
   blockAdmin: {
     type: Schema.Types.ObjectId,
     ref: "User"

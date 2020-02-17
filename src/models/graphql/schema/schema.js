@@ -1,5 +1,5 @@
 /**
- * GraphQl Schema
+ *  Main GraphQl Schema 
  */
 const {
     buildSchema

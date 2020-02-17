@@ -8,7 +8,7 @@ const isAuth = require("../api/middlewares/is-auth");
 
 module.exports = graphql = app => {
   /*
-   * GraphQl endpoing route
+   * GraphQl endpoint route
    */
 
   app.use(
