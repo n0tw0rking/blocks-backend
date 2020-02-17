@@ -3,7 +3,7 @@
  * WEB Push Notification Worker
  */
 
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const isAuth = require("../api/middlewares/is-auth");
 const {
   config
@@ -12,12 +12,14 @@ const webpush = require("web-push");
 const PushNotif = require("../models/pushNotification");
 
 module.exports = pushNotif = app => {
+  /**
+   * Authentication middleware
+   */
   app.use(isAuth);
+
   app.post("/push", async (req, res) => {
     if (req.isAuth) {
       const sub = req.body;
-      console.log(sub);
-
       const push = new PushNotif({
         userId: req.userId,
         subNotif: sub
