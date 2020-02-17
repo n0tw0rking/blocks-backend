@@ -3,7 +3,9 @@ const cloudinary = require("cloudinary");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const isAuth = require("../api/middlewares/is-auth");
 const bodyParser = require("body-parser");
-const { config } = require("../config/index");
+const {
+  config
+} = require("../config/index");
 
 cloudinary.config({
   cloud_name: config.image.cloud_name,
@@ -14,22 +16,18 @@ const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "gavatar",
   allowedFormats: ["jpg", "jpeg", "png"],
-  transformation: [
-    {
-      width: 500,
-      height: 500,
-      crop: "limit"
-    }
-  ]
+  transformation: [{
+    width: 500,
+    height: 500,
+    crop: "limit"
+  }]
 });
 var parser = multer({
   storage: storage
 });
 module.exports = image = app => {
   app.use(isAuth);
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(`/${config.api}/images`, parser.single("file"), (req, res) => {
+  app.use(`${config.api.prefix}/images`, parser.single("file"), (req, res) => {
     if (req.isAuth) {
       const image = {};
       image.url = req.file.url;
@@ -37,9 +35,17 @@ module.exports = image = app => {
       res.status(200).json({
         image
       });
-    } else res.json({ success: false, message: "unAuthorized" });
+    } else res.json({
+      success: false,
+      message: "unAuthorized"
+    });
   });
-  app.use(function(err, req, res, next) {
+
+  /**
+   * Response Error Handling
+   */
+
+  app.use(function (err, req, res, next) {
     console.error(err.message);
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);

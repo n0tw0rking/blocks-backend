@@ -2,6 +2,10 @@ const dotenv = require("dotenv");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
+/**
+ * If .ENV file is missing comment
+ */
+
 const envFound = dotenv.config();
 if (!envFound) {
   // This error should crash whole process
@@ -15,12 +19,12 @@ const config = {
   port: parseInt(process.env.PORT, 10),
 
   /**
-   * That long string from mlab
+   * Database Connection URI
    */
   databaseURL: process.env.MONGODB_URI,
 
   /**
-   * secret sauce
+   * Secret Sauce
    */
   jwtSecret: process.env.JWT_SECRET,
 
@@ -37,21 +41,21 @@ const config = {
     prefix: "/api"
   },
   /**
-   *  web push credentials
+   *  WEB Push Notifcation Credentials
    */
   webPush: {
     public_key: process.env.PUBLIC_KEY,
     private_key: process.env.PRIVATE_KEY
   },
   /**
-   *  email credentials
+   *  Email Credentials
    */
   email: {
     password: process.env.GMAIL_PASSWORD,
     sender: process.env.GMAIL_SENDER
   },
   /**
-   *  sms credentials
+   *  sms Credentials
    */
   sms: {
     acc_sid: process.env.ACC_SID,
