@@ -44,19 +44,21 @@ async function startServer() {
     notpush(app);
     graphql(app);
 
-    await require("./loaders/mongoose").mongooseConnect();
-    app.listen(config.port, (err) => {
-        if (err) {
-            console.Error(err);
-            process.exit(1);
-            return;
-        }
-        console.log(`
+
+  await require("./loaders/mongoose").mongooseConnect();
+  app.listen(config.port, err => {
+    if (err) {
+      console.Error(err);
+      process.exit(1);
+      return;
+    }
+    console.log(`
       ################################################
            🛡️  Server listening on port: ${config.port} 🛡️ 
       ################################################
     `);
-    });
+  });
 }
 
 startServer();
+module.exports = { startServer };
