@@ -4,6 +4,9 @@ const Message = require("../../message");
 const Balance = require("../../balance");
 const Subscription = require("../../subscription");
 const Service = require("../../service");
+const PushNotif = require("../../pushNotification");
+const webpush = require("web-push");
+const { config } = require("../../../config/index");
 //I ADDED THE FOLLOWING
 const AdminBlock = require("../../adminBlock");
 const Invoice = require("../../invoice");
@@ -143,7 +146,8 @@ module.exports = {
     }
     const token = jwt.sign(
       {
-        userId: user._id,
+        // userId: user._id,
+        userId: user.UserId,
         email: user.email,
         isAdmin: user.isAdmin,
         isSuperAdmin: user.isSuperAdmin
@@ -153,7 +157,8 @@ module.exports = {
     );
 
     return {
-      userId: user._id,
+      // userId: user._id,
+      userId: user.UserId,
       token: token,
       tokenExpriration: 12,
       isAdmin: user.isAdmin,
@@ -245,7 +250,7 @@ module.exports = {
       const subscription = await Subscription.findOne({
         name: args.messageInput.name
       });
-      console.log(subscription);
+      // console.log(subscription);
       const message = new Message({
         message: args.messageInput.message,
         sender: subscription.user
@@ -253,7 +258,47 @@ module.exports = {
       subscription.userMesg.push(message._id);
       await subscription.save();
       ////////
-      return await message.save();
+      try {
+        const messageSave = await message.save();
+        try {
+          const push = await PushNotif.findOne({
+            userId: "5e3d4176ff89492ef4c94944"
+          });
+          // subscription.user
+          // res.set("Content-Type", "application/json");
+
+          webpush.setVapidDetails(
+            "blocks:Notworking@gmail.com",
+            config.webPush.public_key,
+            config.webPush.private_key
+          );
+
+          const payload = JSON.stringify({
+            notification: {
+              title: "UNI-BLoCK",
+              body: "You Have New Message ",
+              icon:
+                "https://lh3.googleusercontent.com/proxy/jvefvnD85Iszy5iybynbTaCHx-ZUd7QeVJ-m3jYIdy6ST3uTrBE88ZpvLqLEKmeDoXrWZK7yuM6zw8Wse30_AgyQhMrvyePbo5FMIYqLzAJysjXYcipckAJoNx3GvwJ9xRt_5g"
+            }
+          });
+          Promise.resolve(webpush.sendNotification(push.subNotif, payload));
+          // .then(() => {
+          //     res.status(200).json({
+          //         message: "Message Notification Sent"
+          //     });
+          // })
+          // .catch((err) => {
+          //     console.log(err);
+          //     res.sendStatus(500);
+          // });
+        } catch (err) {
+          console.log(err, "PUSH ");
+        }
+
+        return messageSave;
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
       console.log(err);
     }

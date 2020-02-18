@@ -1,5 +1,15 @@
+/*
+ * Mongoose Loader
+ */
 const mongoose = require("mongoose");
-const { config } = require("../config/index");
+const {
+  config
+} = require("../config/index");
+
+/*
+ * Asynchronous
+ * Mongoose Connector Function
+ */
 
 const mongooseConnect = async () => {
   await mongoose
@@ -12,6 +22,11 @@ const mongooseConnect = async () => {
       console.log("✌️ DB loaded and connected!");
     });
 };
+
+/*
+ * Mongoose Export
+ */
+
 module.exports = {
   mongooseConnect
 };

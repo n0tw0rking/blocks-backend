@@ -11,4 +11,5 @@ module.exports = `
         oneBlock(name:String!):Block
         oneBlockSubs(name:String) :[Subscription!]
         adminBlocks(email:String):[Block!]
+        
     }`;
