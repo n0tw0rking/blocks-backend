@@ -1,16 +1,21 @@
-const { config } = require("../config/index");
+/**
+ * Mail Service configuration
+ */
+const {
+  config
+} = require("../config/index");
 const isAuth = require("../api/middlewares/is-auth");
 const bodyParser = require("body-parser");
 const send = require("gmail-send")({
   user: config.email.sender,
   pass: config.email.password
 });
+
 function sendEmail(
   to,
   // username,
   text
 ) {
-  // check the email before before sending
   var msg = {
     to: `${to}`,
     subject: "test messge",
@@ -24,22 +29,60 @@ function sendEmail(
   return send(msg);
 }
 module.exports = email = app => {
-  app.use(isAuth);
+  app.post(`${config.api.prefix}/email`, (req, res) => {
 
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.post(`/${config.api}/email`, (req, res) => {
+    /**
+     * Authorizaiton Checking ...
+     */
     if (req.isAuth) {
-      const { email, text } = req.body;
+      const {
+        email,
+        text
+      } = req.body;
+
+      /**
+       * Security Checking
+       * isAuthorized  === true  ? 
+       * => Send Eamil
+       */
+
       sendEmail(email, text)
-        .then(({ result }) => {
+        .then(({
+          result
+        }) => {
           console.log("message sent", result);
-          res.status(200).json({ success: true, result });
+          res.status(200).json({
+            success: true,
+            result
+          });
         })
         .catch(err => {
           console.log(err);
-          res.json({ success: false, message: err });
+          res.json({
+            success: false,
+            message: err
+          });
         });
-    } else res.json({ success: false, message: "UnAuthorized" });
+
+      /**
+       * Security Checking
+       * isAuthorized  === false  ? 
+       * => Send Unathorized message
+       */
+
+    } else res.json({
+      success: false,
+      message: "UnAuthorized"
+    });
+  });
+
+  /**
+   * Response Error Handling
+   */
+
+  app.use(function (err, req, res, next) {
+    console.error(err.message);
+    if (!err.statusCode) err.statusCode = 500;
+    res.status(err.statusCode).send(err.message);
   });
 };
