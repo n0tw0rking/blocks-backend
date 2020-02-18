@@ -23,7 +23,7 @@ module.exports = {
 		example for that 
 		query{subscription(name:"AAA"){ _id block{ _id name location}}}
   */
-  createNewUser: async (args) => {
+  createNewUser: async args => {
     try {
       return await Requset.create(args);
     } catch (e) {
@@ -37,7 +37,7 @@ module.exports = {
   // saves him in user collection
   //delete him from request collection
   verifyUser() {},
-  oneSubscription: async (args) => {
+  oneSubscription: async args => {
     //   const user = User.findOne({email:args.email})
     try {
       const subscription = await Subscription.findOne({
@@ -64,7 +64,7 @@ module.exports = {
     }
   },
   // find the service and by its name
-  oneService: async (args) => {
+  oneService: async args => {
     const service = await Service.findOne({
       name: args.name
     }).populate(
@@ -98,7 +98,7 @@ module.exports = {
       throw new Error("something bad happen here");
     }
   },
-  oneBlock: async (args) => {
+  oneBlock: async args => {
     try {
       const block = await Block.findOne({
         name: args.name
@@ -111,7 +111,7 @@ module.exports = {
       console.log(err);
     }
   },
-  oneBlockSubs: async (args) => {
+  oneBlockSubs: async args => {
     try {
       const block = await Block.findOne({
         name: args.name
@@ -146,7 +146,7 @@ module.exports = {
     } catch (err) {}
   },
   // login ////////
-  login: async (args) => {
+  login: async args => {
     const user = await User.findOne({
       email: args.userInput.email
     });
@@ -168,7 +168,7 @@ module.exports = {
         isSuperAdmin: user.isSuperAdmin
       },
       "superpasswordkey", {
-        expiresIn: "1h"
+        expiresIn: "12h"
       }
     );
 
@@ -176,7 +176,7 @@ module.exports = {
       // userId: user._id,
       userId: user.UserId,
       token: token,
-      tokenExpriration: 1,
+      tokenExpriration: 12,
       isAdmin: user.isAdmin,
       isSuperAdmin: user.isSuperAdmin
     };
