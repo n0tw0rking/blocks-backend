@@ -10,6 +10,7 @@ module.exports = graphql = app => {
   /*
    * GraphQl endpoint route
    */
+  app.use(isAuth)
 
   app.use(
     "/graphql",
