@@ -208,60 +208,7 @@ module.exports = {
         if (req.isSuperAdmin) {
           user.isAdmin = args.userInput.isAdmin;
         }
-        console.log(user);
-        return user.save();
       })
-      .then(user => {
-        return {
-          ...user._doc,
-          password: null
-        };
-      })
-      .catch(err => {
-        throw err;
-      });
-  },
-  // list all the service in the database
-  service: async () => {
-    const service = await Service.find();
-    return service;
-  },
-  message: async () => {
-    try {
-      const messages = await Message.find().populate("sender");
-      /////////
-      messages.forEach(ele => {
-        ele.sender.password = "null";
-      });
-      ////////
-      return messages.map(message => {
-        return message;
-        // return { ...message._doc, sender: { ...message._doc.sender._doc, password: 'null' } };
-        // this is another approch that u can do or you can use mehtod forEach
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  // create block /////
-  createBlock: async args => {
-    const blockName = await Block.findOne({
-      name: args.blockInput.name
-    });
-    if (blockName) {
-      throw new Error("The block name already exsist ");
-    }
-    const block = new Block({
-      name: args.blockInput.name,
-      location: args.blockInput.location
-    });
-    try {
-      saveBlock = await block.save();
-      return saveBlock;
-      //   return { ...saveBlock._doc };
-    } catch (err) {
-      console.log(err);
-    }
   },
   // create meassge ////
   createMessage: async (args, req) => {
@@ -269,7 +216,7 @@ module.exports = {
     //   throw new Error('Unauthenticated');
     // }
     //req.userId
-
+    console.log("wqewqe")
     try {
       const subscription = await Subscription.findOne({
         name: args.messageInput.name
@@ -282,12 +229,15 @@ module.exports = {
       subscription.userMesg.push(message._id);
       await subscription.save();
       ////////
+
       try {
         const messageSave = await message.save();
         try {
-          const push = await PushNotif.findOne({
-            userId: "5e3d4176ff89492ef4c94944"
+          const push = await PushNotif.find({
+            // userId: "5e38371c33630807194ea1f3"
+            userId: "18"
           });
+          console.log(push, "ooooo");
           // subscription.user
           // res.set("Content-Type", "application/json");
 
@@ -471,5 +421,6 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
+
   }
-};
+}
