@@ -11,9 +11,9 @@ shares work between you and the neighbors at any event that comes up.
 ![UniBlocks](./demo/demo.gif)
 # TEAM
 
-[@OmarBara](https://github.com/OmarBara)
-[@mohamed-fared](https://github.com/mohamed-fared)
-[@AdamMomen](https://github.com/AdamMomen)
+[@OmarBara](https://github.com/OmarBara) <br>
+[@mohamed-fared](https://github.com/mohamed-fared)<br>
+[@AdamMomen](https://github.com/AdamMomen)<br>
 [@psktcsharp](https://github.com/psktcsharp)
 
 # Motivation
