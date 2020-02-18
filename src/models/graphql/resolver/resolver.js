@@ -21,158 +21,158 @@ module.exports = {
 		example for that 
 		query{subscription(name:"AAA"){ _id block{ _id name location}}}
   */
-  createNewUser: async args => {
-    try {
-      return await Requset.create(args);
-    } catch (e) {
-      console.error(e);
-      throw error;
-    }
-  },
-  // input user
-  // finds him
-  // saves in temp var
-  // saves him in user collection
-  //delete him from request collection
-  verifyUser() {},
-  oneSubscription: async args => {
-    //   const user = User.findOne({email:args.email})
-    try {
-      const subscription = await Subscription.findOne({ name: args.name })
-        .populate("balance")
-        .populate("user")
-        .populate("block")
-        .populate("service")
-        .populate("userMesg");
-      // .populate({
-      //   path: 'user',
-      //   populate: {
-      //     path: 'userMesg',
-      //     populate: {
-      //       path: 'sender', // i used this just practice to how deep i can populate
-      //     },
-      //   },
-      // });
-      console.log(subscription);
-      return subscription;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  // find the service and by its name
-  oneService: async args => {
-    const service = await Service.findOne({ name: args.name }).populate(
-      "subscriptionId"
-    );
-    console.log(service);
-    return service;
-  },
-  //this function to retrive one user information by his Id
-  //when he is loged on
-  oneUser: async (args, req) => {
-    // if (!req.isAuth) {
-    //   throw new Error('Unauthenticated');
-    // }
-    try {
-      //need change the _id by the req.userId
-      const user = await User.findById({
-        // _id: "5e32954c2caab0519d885385"
-        _id: args.id
-      })
-        .populate("userMesg")
-        .populate({
-          path: "userSubscription",
-          populate: {
-            path: "block"
-          }
-        });
-      return user;
-    } catch (err) {
-      console.log(err);
-      throw new Error("something bad happen here");
-    }
-  },
-  oneBlock: async args => {
-    try {
-      const block = await Block.findOne({ name: args.name }).populate(
-        "userSubscription"
-      );
-      console.log(block);
-      return block;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  oneBlockSubs: async args => {
-    try {
-      const block = await Block.findOne({ name: args.name }).populate(
-        "userSubscription"
-      );
-      console.log(block);
-      if (!block) {
-        throw new Error("The block doesn't exist ");
-      } else {
-        return block.userSubscription;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  // This function check if the user in frontend is authentcated by the backend or not
-  isAuth: (_, req) => {
-    return req.userId;
-  },
-  // This function check if the user is superAdmin or not
-  isSuperIsAdmin: async ({ id }) => {
-    console.log(id);
-    try {
-      const user = await User.findById({ _id: id });
-      console.log(user);
-      return user;
-    } catch (err) {}
-  },
-  // login ////////
-  login: async args => {
-    const user = await User.findOne({ email: args.userInput.email });
-    if (!user) {
-      throw new Error(" user does not exist ");
-    }
-    const isEqual = await bcrypt.compare(
-      args.userInput.password,
-      user.password
-    );
-    if (!isEqual) {
-      throw new Error(" password is incorrect  ");
-    }
-    const token = jwt.sign(
-      {
-        // userId: user._id,
-        userId: user.UserId,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        isSuperAdmin: user.isSuperAdmin
-      },
-      "superpasswordkey",
-      { expiresIn: "12h" }
-    );
+    createNewUser: async (args) => {
+        try {
+            return await Requset.create(args);
+        } catch (e) {
+            console.error(e);
+            throw error;
+        }
+    },
+    // input user
+    // finds him
+    // saves in temp var
+    // saves him in user collection
+    //delete him from request collection
+    verifyUser() {},
+    oneSubscription: async (args) => {
+        //   const user = User.findOne({email:args.email})
+        try {
+            const subscription = await Subscription.findOne({ name: args.name })
+                .populate("balance")
+                .populate("user")
+                .populate("block")
+                .populate("service")
+                .populate("userMesg");
+            // .populate({
+            //   path: 'user',
+            //   populate: {
+            //     path: 'userMesg',
+            //     populate: {
+            //       path: 'sender', // i used this just practice to how deep i can populate
+            //     },
+            //   },
+            // });
+            console.log(subscription);
+            return subscription;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    // find the service and by its name
+    oneService: async (args) => {
+        const service = await Service.findOne({ name: args.name }).populate(
+            "subscriptionId"
+        );
+        console.log(service);
+        return service;
+    },
+    //this function to retrive one user information by his Id
+    //when he is loged on
+    oneUser: async (args, req) => {
+        // if (!req.isAuth) {
+        //   throw new Error('Unauthenticated');
+        // }
+        try {
+            //need change the _id by the req.userId
+            const user = await User.findById({
+                // _id: "5e32954c2caab0519d885385"
+                _id: args.id
+            })
+                .populate("userMesg")
+                .populate({
+                    path: "userSubscription",
+                    populate: {
+                        path: "block"
+                    }
+                });
+            return user;
+        } catch (err) {
+            console.log(err);
+            throw new Error("something bad happen here");
+        }
+    },
+    oneBlock: async (args) => {
+        try {
+            const block = await Block.findOne({ name: args.name }).populate(
+                "userSubscription"
+            );
+            console.log(block);
+            return block;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    oneBlockSubs: async (args) => {
+        try {
+            const block = await Block.findOne({ name: args.name }).populate(
+                "userSubscription"
+            );
+            console.log(block);
+            if (!block) {
+                throw new Error("The block doesn't exist ");
+            } else {
+                return block.userSubscription;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    // This function check if the user in frontend is authentcated by the backend or not
+    isAuth: (_, req) => {
+        return req.userId;
+    },
+    // This function check if the user is superAdmin or not
+    isSuperIsAdmin: async ({ id }) => {
+        console.log(id);
+        try {
+            const user = await User.findById({ _id: id });
+            console.log(user);
+            return user;
+        } catch (err) {}
+    },
+    // login ////////
+    login: async (args) => {
+        const user = await User.findOne({ email: args.userInput.email });
+        if (!user) {
+            throw new Error(" user does not exist ");
+        }
+        const isEqual = await bcrypt.compare(
+            args.userInput.password,
+            user.password
+        );
+        if (!isEqual) {
+            throw new Error(" password is incorrect  ");
+        }
+        const token = jwt.sign(
+            {
+                // userId: user._id,
+                userId: user.UserId,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                isSuperAdmin: user.isSuperAdmin
+            },
+            "superpasswordkey",
+            { expiresIn: "1h" }
+        );
 
-    return {
-      // userId: user._id,
-      userId: user.UserId,
-      token: token,
-      tokenExpriration: 12,
-      isAdmin: user.isAdmin,
-      isSuperAdmin: user.isSuperAdmin
-    };
-  },
-  // create user /////
-  createUser: (args, req) => {
-    console.log(req.isAuth);
-    if (!req.isAuth) {
-      throw new Error("Unauthenticated");
-    } else if (!req.isAdmin && !req.isSuperAdmin) {
-      throw new Error("not allowed to create user with user privilege");
-    }
+        return {
+            // userId: user._id,
+            userId: user.UserId,
+            token: token,
+            tokenExpriration: 1,
+            isAdmin: user.isAdmin,
+            isSuperAdmin: user.isSuperAdmin
+        };
+    },
+    // create user /////
+    createUser: (args, req) => {
+        console.log(req.isAuth);
+        if (!req.isAuth) {
+            throw new Error("Unauthenticated");
+        } else if (!req.isAdmin && !req.isSuperAdmin) {
+            throw new Error("not allowed to create user with user privilege");
+        }
 
     return User.findOne({ email: args.userInput.email })
       .then(user => {
