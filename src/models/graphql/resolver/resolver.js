@@ -130,7 +130,6 @@ module.exports = {
   },
   // This function check if the user in frontend is authentcated by the backend or not
   isAuth: (_, req) => {
-    console.log("req.userId", req.userId)
     return req.userId;
   },
   // This function check if the user is superAdmin or not
