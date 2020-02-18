@@ -9,7 +9,7 @@ const image = require("./loaders/imagesUploader");
 const pushNotif = require("./loaders/web_push");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const isAuth = require("./api/middlewares/is-auth")
 /**
  * Asynchronous
  * Server Starter Function
@@ -36,7 +36,7 @@ async function startServer() {
 
   app.use(bodyParser.json());
 
-
+  app.use(isAuth)
   /**
    * Utility
    * SMS service 
