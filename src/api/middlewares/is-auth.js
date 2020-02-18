@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
         return next();
     }
     const token = authHeader.split(" ")[1]; // Authorization Bearer
-    console.log(token);
+    // console.log(token);
     if (!token || token === "") {
         req.isAuth = false;
         return next();
@@ -28,6 +28,7 @@ module.exports = (req, res, next) => {
     req.userId = decodedToken.userId;
     req.isAdmin = decodedToken.isAdmin;
     req.isSuperAdmin = decodedToken.isSuperAdmin;
+
     // console.log(decodedToken.isAdmin);
     // console.log(decodedToken.isSuperAdmin, "isSuperAdmin");
     next();
