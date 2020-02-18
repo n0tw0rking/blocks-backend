@@ -8,6 +8,7 @@ also being aware of anything that happens in your building block.
 
 shares work between you and the neighbors at any event that comes up.
 [Link our deployed backEnd on Heroku](https://blocks-backend.herokuapp.com)
+![UniBlocks](./demo/demo.gif)
 
 # Motivation
 
@@ -141,7 +142,7 @@ router.post("/", async (req, res) => {
 
 ## Status
 
-Project is in planning phase.
+Project is in development phase.
 
 # Roadmap
 
