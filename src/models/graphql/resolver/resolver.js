@@ -34,7 +34,7 @@ module.exports = {
     // saves in temp var
     // saves him in user collection
     //delete him from request collection
-    verifyUser() {},
+    verifyUser() { },
     oneSubscription: async (args) => {
         //   const user = User.findOne({email:args.email})
         try {
@@ -120,6 +120,7 @@ module.exports = {
     },
     // This function check if the user in frontend is authentcated by the backend or not
     isAuth: (_, req) => {
+        console.log(req.userId)
         return req.userId;
     },
     // This function check if the user is superAdmin or not
@@ -129,7 +130,7 @@ module.exports = {
             const user = await User.findById({ _id: id });
             console.log(user);
             return user;
-        } catch (err) {}
+        } catch (err) { }
     },
     // login ////////
     login: async (args) => {
