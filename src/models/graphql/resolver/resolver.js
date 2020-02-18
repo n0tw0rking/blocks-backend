@@ -246,7 +246,7 @@ module.exports = {
         //   throw new Error('Unauthenticated');
         // }
         //req.userId
-
+        console.log("wqewqe")
         try {
             const subscription = await Subscription.findOne({
                 name: args.messageInput.name
@@ -259,14 +259,15 @@ module.exports = {
             subscription.userMesg.push(message._id);
             await subscription.save();
             ////////
+
             try {
                 const messageSave = await message.save();
                 try {
                     const push = await PushNotif.find({
                         // userId: "5e38371c33630807194ea1f3"
-                        userId: subscription.user
+                        userId: "18"
                     });
-                    console.log(push);
+                    console.log(push, "ooooo");
                     // subscription.user
                     // res.set("Content-Type", "application/json");
 
