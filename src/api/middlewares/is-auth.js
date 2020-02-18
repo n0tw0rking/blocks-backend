@@ -4,7 +4,7 @@ const {
 } = require("../../config/index");
 module.exports = (req, res, next) => {
     const authHeader = req.get("Authorization");
-    console.log(authHeader)
+    console.log("authHeader = ", authHeader)
     if (!authHeader) {
         req.isAuth = false;
         return next();
