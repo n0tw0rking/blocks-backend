@@ -9,6 +9,12 @@ also being aware of anything that happens in your building block.
 shares work between you and the neighbors at any event that comes up.
 [Link our deployed backEnd on Heroku](https://blocks-backend.herokuapp.com)
 ![UniBlocks](./demo/demo.gif)
+# TEAM
+
+[@OmarBara](https://github.com/OmarBara)
+[@mohamed-fared](https://github.com/mohamed-fared)
+[@AdamMomen](https://github.com/AdamMomen)
+[@psktcsharp](https://github.com/psktcsharp)
 
 # Motivation
 
