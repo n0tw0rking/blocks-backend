@@ -12,8 +12,8 @@ shares work between you and the neighbors at any event that comes up.
 
 # TEAM
 
-[@OmarBara](https://github.com/OmarBara) <br>
-[@mohamed-fared](https://github.com/mohamed-fared)<br>
+[@mohamed-fared](https://github.com/mohamed-fared) Product Owner<br>
+[@OmarBara](https://github.com/OmarBara) Scrum Master<br>
 [@AdamMomen](https://github.com/AdamMomen)<br>
 [@psktcsharp](https://github.com/psktcsharp)
 
