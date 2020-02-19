@@ -5,11 +5,15 @@ const express_graphql = require("express-graphql");
 const graphqlShcema = require("../models/graphql/schema/schema");
 const graphqlResolvcer = require("../models/graphql/resolver/resolver");
 const isAuth = require("../api/middlewares/is-auth");
-
+const cors = require("cors")
+const bodyParser = require("body-parser")
 module.exports = graphql = app => {
   /*
    * GraphQl endpoint route
    */
+  app.use(cors());
+  app.use(bodyParser.json());
+  app.use(isAuth)
 
   app.use(
     "/graphql",
