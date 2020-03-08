@@ -171,3 +171,24 @@ Angular is inside the public folder, it has a separate architect, its own packag
 ## Contact
 
 created by [@OmarBara](https://github.com/OmarBara) [@mohamed-fared](https://github.com/mohamed-fared) [@AdamMomen](https://github.com/AdamMomen) [@psktcsharp](https://github.com/psktcsharp)
+
+
+## Contributors
+
+Thanks goes to these wonderful people
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/OmarBara"><img src="https://avatars0.githubusercontent.com/u/26072723?s=400&v=4" width="100px;" alt="Omar Bara"/><br /><sub><b>Omar Bara</b></sub></a><br /><a href="" title="Code">💻</a> <a href="" title="Documentation">📖</a> <a href="" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/mohamed-fared"><img src="https://avatars1.githubusercontent.com/u/38176894?s=400&v=4" width="100px;" alt="fared"/><br /><sub><b>mohamed</b></sub></a><br /><a href="https://github.com/mohamed-fared" title="Code">💻</a> <a href="" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/AdamMomen"><img src="https://avatars1.githubusercontent.com/u/55929982?s=400&v=4" width="100px;" alt="Adam Momen"/><br /><sub><b>Adam Momen</b></sub></a><br /><a href="https://github.com/AdamMomen" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/psktcsharp"><img src="https://avatars0.githubusercontent.com/u/23266034?s=400&v=4" width="100px;" alt="Amar"/><br /><sub><b>Amar</b></sub></a><br /><a href="https://github.com/psktcsharp" title="Bug reports">🐛</a> <a href="" title="Code">💻</a></td>   
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## License
+
+[MIT](./LICENSE)
